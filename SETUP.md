@@ -13,7 +13,7 @@ Votre machine
 ├── Environnement virtuel  ← isolé, propre, reproductible
 │   └── toutes les bibliothèques du cours
 ├── JupyterLab             ← interface pour les notebooks
-└── Kaggle API             ← pour télécharger les datasets réels
+└── Kaggle API             ← pour télécharger les datasets réels (TP5, TP6)
 ```
 
 ---
@@ -27,7 +27,8 @@ python3 --version
 ```
 
 Vous devez voir `Python 3.10.x` ou supérieur.  
-Si Python n'est pas installé : [python.org/downloads](https://www.python.org/downloads/) (cochez **"Add to PATH"** sous Windows).
+Si Python n'est pas installé : [python.org/downloads](https://www.python.org/downloads/)  
+→ Sous Windows, cochez impérativement **"Add Python to PATH"** pendant l'installation.
 
 ---
 
@@ -38,7 +39,8 @@ git clone https://github.com/pierremarielore-oss/ia-cyber-m1.git
 cd ia-cyber-m1
 ```
 
-Si git n'est pas installé : [git-scm.com](https://git-scm.com/downloads)
+> Pas besoin de compte GitHub — le dépôt est public.  
+> Si git n'est pas installé : [git-scm.com](https://git-scm.com/downloads)
 
 ---
 
@@ -48,13 +50,13 @@ Si git n'est pas installé : [git-scm.com](https://git-scm.com/downloads)
 # Créer l'environnement (une seule fois)
 python3 -m venv venv
 
-# L'activer (à faire à chaque nouvelle session)
+# L'activer — à refaire à chaque nouvelle session terminal
 source venv/bin/activate          # macOS / Linux
-# ou
 venv\Scripts\activate             # Windows
 ```
 
-> ✅ Votre invite de commande doit afficher `(venv)` au début.
+> ✅ Votre invite de commande doit afficher `(venv)` au début.  
+> Si ce n'est pas le cas, l'environnement n'est pas actif — les bibliothèques ne seront pas trouvées.
 
 ---
 
@@ -71,24 +73,26 @@ L'installation prend 3 à 5 minutes selon votre connexion. C'est normal.
 
 ## Étape 5 — Configurer l'accès Kaggle
 
-Kaggle est une plateforme gratuite qui héberge les datasets utilisés dans les TPs 5 et 6.
+Kaggle est une plateforme gratuite qui héberge les datasets utilisés dans les TP5 et TP6.
 
 ### 5.1 Créer un compte Kaggle
 
 1. Allez sur [kaggle.com](https://www.kaggle.com) et créez un compte gratuit
-2. Cliquez sur votre avatar → **Settings**
+2. Cliquez sur votre avatar en haut à droite → **Settings**
 3. Section **API** → cliquez **Create New Token**
-4. Un fichier `kaggle.json` se télécharge
+4. Un fichier `kaggle.json` se télécharge automatiquement
 
 ### 5.2 Placer la clé
 
+**macOS / Linux :**
 ```bash
-# macOS / Linux
 mkdir -p ~/.config/kaggle
 mv ~/Downloads/kaggle.json ~/.config/kaggle/kaggle.json
 chmod 600 ~/.config/kaggle/kaggle.json
+```
 
-# Windows (PowerShell)
+**Windows (PowerShell) :**
+```powershell
 mkdir "$env:USERPROFILE\.config\kaggle" -Force
 Move-Item "$env:USERPROFILE\Downloads\kaggle.json" "$env:USERPROFILE\.config\kaggle\kaggle.json"
 ```
@@ -102,7 +106,7 @@ Move-Item "$env:USERPROFILE\Downloads\kaggle.json" "$env:USERPROFILE\.config\kag
 kaggle datasets list
 ```
 
-Si vous voyez une liste de datasets, c'est bon.
+Si vous voyez une liste de datasets s'afficher, c'est bon.
 
 ---
 
@@ -116,12 +120,12 @@ jupyter lab
 Le navigateur s'ouvre automatiquement sur `http://localhost:8888`.  
 Naviguez dans le dossier `tp/` pour accéder aux notebooks.
 
-> 💡 **Astuce** : ajoutez un alias dans votre terminal pour aller plus vite :
+> 💡 **Astuce** : ajoutez un alias dans votre terminal pour tout lancer en une commande :
 > ```bash
 > echo 'alias jl="cd ~/ia-cyber-m1 && source venv/bin/activate && jupyter lab"' >> ~/.bashrc
 > source ~/.bashrc
 > ```
-> Ensuite, tapez simplement `jl` pour tout lancer d'un coup.
+> Ensuite, tapez simplement `jl` pour démarrer.
 
 ---
 
@@ -129,45 +133,22 @@ Naviguez dans le dossier `tp/` pour accéder aux notebooks.
 
 ```
 ia-cyber-m1/
-├── SETUP.md                  ← ce guide
-├── requirements.txt          ← dépendances Python
+├── SETUP.md                          ← ce guide
+├── requirements.txt                  ← dépendances Python
 └── tp/
-    ├── TP_S1/
-    │   └── TP_S1_symbolique.ipynb          — IA symbolique : règles & systèmes experts
-    ├── TP_S2/
-    │   └── TP_S2_ontologies.ipynb          — Ontologies & graphes (MITRE ATT&CK)
-    ├── TP0/
-    │   └── TP0_perceptron_debutant.ipynb   — Mon premier neurone (très guidé)
-    ├── TP1/
-    │   └── TP1_perceptron.ipynb            — Perceptron NumPy + PyTorch
-    ├── TP2/
-    │   └── TP2_ueba.ipynb                  — UEBA : K-Means & Isolation Forest
-    ├── TP4/
-    │   └── TP4_reseau_neurones.ipynb       — Réseau multicouches (MLP)
-    ├── TP5/
-    │   └── TP5_ia_generative.ipynb         — IA générative & sécurité LLMs
-    └── TP6/
-        └── TP6_defensive_ai.ipynb          — IDS par Machine Learning
+    ├── tp_s1_symbolique/             — IA symbolique : règles & systèmes experts
+    ├── tp_s2_ontologies/             — Ontologies & graphes (MITRE ATT&CK)
+    ├── tp0_perceptron_debutant/      — Mon premier neurone (très guidé)
+    ├── tp1_perceptron/               — Perceptron NumPy + PyTorch
+    ├── tp2_ueba_non_supervise/       — UEBA : K-Means & Isolation Forest
+    ├── tp4_reseau_neurones/          — Réseau multicouches (MLP)
+    ├── tp5_ia_generative/            — IA générative & sécurité LLMs
+    └── tp6_defensive_ai/             — IDS par Machine Learning
 ```
 
 ---
 
-## Résolution des problèmes fréquents
-
-| Problème | Solution |
-|---|---|
-| `python3` introuvable | Réinstallez Python en cochant "Add to PATH" |
-| `(venv)` n'apparaît pas | Relancez `source venv/bin/activate` |
-| `ModuleNotFoundError` | Vérifiez que le venv est activé puis `pip install NOM` |
-| JupyterLab ne s'ouvre pas | Copiez l'URL avec le token depuis le terminal |
-| Port 8888 occupé | `jupyter lab --port 8889` |
-| Kaggle : `401 Unauthorized` | Vérifiez l'emplacement de `kaggle.json` (section 5.2) |
-| Kaggle : `403 Forbidden` | Acceptez les conditions d'utilisation du dataset sur kaggle.com |
-| Téléchargement Kaggle lent | Normal pour les gros datasets — patientez |
-
----
-
-## Mise à jour des notebooks
+## Mettre à jour les notebooks
 
 L'enseignant peut corriger ou ajouter des fichiers pendant le semestre.  
 Pour récupérer les dernières versions :
@@ -177,7 +158,22 @@ cd ia-cyber-m1
 git pull
 ```
 
-> ⚠️ Si vous avez modifié un notebook, Git refusera le pull. Sauvegardez d'abord votre travail sous un autre nom (ex : `TP4_mon_travail.ipynb`), puis faites `git pull`.
+> ⚠️ Si vous avez modifié un notebook, Git peut refuser le pull.  
+> Sauvegardez d'abord votre travail sous un autre nom (ex : `TP4_mon_travail.ipynb`), puis faites `git pull`.
+
+---
+
+## Résolution des problèmes fréquents
+
+| Problème | Solution |
+|---|---|
+| `python3` introuvable | Réinstallez Python en cochant "Add to PATH" |
+| `(venv)` n'apparaît pas | Relancez `source venv/bin/activate` |
+| `ModuleNotFoundError` | Vérifiez que le venv est activé, puis `pip install NOM` |
+| JupyterLab ne s'ouvre pas | Copiez l'URL affichée dans le terminal (avec le token) |
+| Port 8888 occupé | `jupyter lab --port 8889` |
+| Kaggle : `401 Unauthorized` | Vérifiez l'emplacement de `kaggle.json` (étape 5.2) |
+| Kaggle : `403 Forbidden` | Acceptez les conditions d'utilisation du dataset sur kaggle.com |
 
 ---
 
