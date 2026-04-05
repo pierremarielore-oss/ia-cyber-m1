@@ -1,23 +1,36 @@
-# Dépendances du cours IA & Cybersécurité — Master 1
-# Installation : pip install -r requirements.txt
+# ============================================================
+#  Cours IA & Cybersécurité — Master 1
+#  requirements.txt — toutes dépendances (TP_S1 → TP6)
+# ============================================================
 
-# Calcul numérique
+# --- Jupyter ---
+jupyterlab>=4.0
+ipykernel>=6.0
+
+# --- Calcul scientifique (TP0, TP1, TP4) ---
 numpy>=1.24
+scipy>=1.10
 
-# Visualisation
-matplotlib>=3.7
-seaborn>=0.12
-
-# Machine learning classique
+# --- Machine Learning (TP2, TP4, TP6) ---
 scikit-learn>=1.3
-
-# Deep learning
 torch>=2.0
 torchvision>=0.15
 
-# Notebooks
-jupyter>=1.0
-ipykernel>=6.0
-
-# Données
+# --- Données & visualisation (tous les TPs) ---
 pandas>=2.0
+matplotlib>=3.7
+seaborn>=0.12
+
+# --- Graphes & ontologies (TP_S2) ---
+networkx>=3.1
+rdflib>=6.3
+
+# --- Kaggle API (TP5, TP6) ---
+kaggle>=1.5
+
+# --- NLP / tokenisation (TP5) ---
+openai>=1.0
+
+# --- Utilitaires ---
+tqdm>=4.65
+requests>=2.31

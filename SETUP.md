@@ -1,137 +1,153 @@
-# Guide d'installation — TP IA & Cybersécurité
-
-Bienvenue ! Ce guide vous permettra d'installer l'environnement Python/Jupyter
-et de récupérer les notebooks de TP depuis le dépôt Git du cours.
+# Guide d'installation — Cours IA & Cybersécurité · M1
+**École d'ingénieurs aéronautique et spatiale · 2025-2026**
 
 ---
 
-## Étape 1 — Installer Python
+## Vue d'ensemble
 
-### Windows
-1. Téléchargez Python 3.11+ sur [python.org/downloads](https://www.python.org/downloads/)
-2. **Cochez impérativement** "Add Python to PATH" lors de l'installation
-3. Vérifiez dans un terminal (`cmd` ou `PowerShell`) :
-   ```
-   python --version
-   ```
+Ce guide vous permet de mettre en place l'environnement Python nécessaire pour tous les TPs du cours. Comptez **15 à 20 minutes** la première fois.
 
-### macOS
+```
+Votre machine
+├── Python 3.10+
+├── Environnement virtuel  ← isolé, propre, reproductible
+│   └── toutes les bibliothèques du cours
+├── JupyterLab             ← interface pour les notebooks
+└── Kaggle API             ← pour télécharger les datasets réels
+```
+
+---
+
+## Étape 1 — Vérifier Python
+
+Ouvrez un terminal et tapez :
+
 ```bash
-# Via Homebrew (recommandé)
-brew install python@3.11
-
-# Ou via le site officiel : https://www.python.org/downloads/
 python3 --version
 ```
 
-### Linux (Debian/Ubuntu)
-```bash
-sudo apt update
-sudo apt install python3 python3-pip python3-venv -y
-python3 --version
-```
+Vous devez voir `Python 3.10.x` ou supérieur.  
+Si Python n'est pas installé : [python.org/downloads](https://www.python.org/downloads/) (cochez **"Add to PATH"** sous Windows).
 
 ---
 
-## Étape 2 — Créer un environnement virtuel (recommandé)
-
-Un environnement virtuel isole les dépendances du cours de votre Python système.
+## Étape 2 — Récupérer le dépôt du cours
 
 ```bash
-# Créez un dossier de travail pour le cours
-mkdir ia-cyber && cd ia-cyber
-
-# Créez l'environnement virtuel
-python -m venv venv
-
-# Activez-le
-# Windows :
-venv\Scripts\activate
-# macOS / Linux :
-source venv/bin/activate
-
-# Votre terminal doit afficher (venv) en début de ligne
-```
-
-> **Important** : activez toujours l'environnement virtuel avant de travailler
-> sur les TP. Si vous fermez le terminal, réactivez-le.
-
----
-
-## Étape 3 — Installer Jupyter et les bibliothèques du cours
-
-```bash
-pip install --upgrade pip
-pip install jupyter numpy pandas matplotlib scikit-learn torch torchvision
-```
-
-> L'installation peut prendre 2 à 5 minutes selon votre connexion.
-
-Vérifiez que Jupyter est bien installé :
-```bash
-jupyter --version
-```
-
----
-
-## Étape 4 — Récupérer les notebooks depuis Git
-
-### Option A — Via Git (recommandé)
-
-Si Git n'est pas installé : [git-scm.com/downloads](https://git-scm.com/downloads)
-
-```bash
-# Clonez le dépôt du cours (remplacez l'URL par celle fournie par votre enseignant)
-git clone https://github.com/VOTRE-ENSEIGNANT/ia-cyber-m1.git
-
-# Accédez au dossier
+git clone https://github.com/pierremarielore-oss/ia-cyber-m1.git
 cd ia-cyber-m1
 ```
 
-Pour mettre à jour les notebooks en cours de semestre :
-```bash
-git pull
-```
-
-### Option B — Téléchargement ZIP (sans Git)
-
-1. Rendez-vous sur la page GitHub du cours (URL fournie par l'enseignant)
-2. Cliquez sur le bouton vert **"Code"** → **"Download ZIP"**
-3. Extrayez le ZIP dans votre dossier de travail
+Si git n'est pas installé : [git-scm.com](https://git-scm.com/downloads)
 
 ---
 
-## Étape 5 — Lancer Jupyter
+## Étape 3 — Créer l'environnement virtuel
 
 ```bash
-# Depuis le dossier du cours (avec l'environnement virtuel activé)
-jupyter notebook
-```
+# Créer l'environnement (une seule fois)
+python3 -m venv venv
 
-Votre navigateur s'ouvre automatiquement sur `http://localhost:8888`.
-Naviguez vers le dossier `tp/` pour accéder aux notebooks de TP.
-
-> Si le navigateur ne s'ouvre pas, copiez l'URL affichée dans le terminal
-> (elle ressemble à `http://localhost:8888/?token=...`)
-
----
-
-## Récapitulatif — Commandes du quotidien
-
-```bash
-# 1. Aller dans le dossier du cours
-cd ia-cyber/ia-cyber-m1
-
-# 2. Activer l'environnement virtuel
-source venv/bin/activate        # macOS/Linux
+# L'activer (à faire à chaque nouvelle session)
+source venv/bin/activate          # macOS / Linux
 # ou
-venv\Scripts\activate           # Windows
+venv\Scripts\activate             # Windows
+```
 
-# 3. Mettre à jour les notebooks
-git pull
+> ✅ Votre invite de commande doit afficher `(venv)` au début.
 
-# 4. Lancer Jupyter
-jupyter notebook
+---
+
+## Étape 4 — Installer les dépendances
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+L'installation prend 3 à 5 minutes selon votre connexion. C'est normal.
+
+---
+
+## Étape 5 — Configurer l'accès Kaggle
+
+Kaggle est une plateforme gratuite qui héberge les datasets utilisés dans les TPs 5 et 6.
+
+### 5.1 Créer un compte Kaggle
+
+1. Allez sur [kaggle.com](https://www.kaggle.com) et créez un compte gratuit
+2. Cliquez sur votre avatar → **Settings**
+3. Section **API** → cliquez **Create New Token**
+4. Un fichier `kaggle.json` se télécharge
+
+### 5.2 Placer la clé
+
+```bash
+# macOS / Linux
+mkdir -p ~/.config/kaggle
+mv ~/Downloads/kaggle.json ~/.config/kaggle/kaggle.json
+chmod 600 ~/.config/kaggle/kaggle.json
+
+# Windows (PowerShell)
+mkdir "$env:USERPROFILE\.config\kaggle" -Force
+Move-Item "$env:USERPROFILE\Downloads\kaggle.json" "$env:USERPROFILE\.config\kaggle\kaggle.json"
+```
+
+> 🔒 `chmod 600` protège votre clé : elle ne sera lisible que par vous.  
+> Ne partagez jamais ce fichier — il donne accès à votre compte Kaggle.
+
+### 5.3 Vérifier
+
+```bash
+kaggle datasets list
+```
+
+Si vous voyez une liste de datasets, c'est bon.
+
+---
+
+## Étape 6 — Lancer JupyterLab
+
+```bash
+# Depuis le dossier ia-cyber-m1, environnement venv activé :
+jupyter lab
+```
+
+Le navigateur s'ouvre automatiquement sur `http://localhost:8888`.  
+Naviguez dans le dossier `tp/` pour accéder aux notebooks.
+
+> 💡 **Astuce** : ajoutez un alias dans votre terminal pour aller plus vite :
+> ```bash
+> echo 'alias jl="cd ~/ia-cyber-m1 && source venv/bin/activate && jupyter lab"' >> ~/.bashrc
+> source ~/.bashrc
+> ```
+> Ensuite, tapez simplement `jl` pour tout lancer d'un coup.
+
+---
+
+## Structure du dépôt
+
+```
+ia-cyber-m1/
+├── SETUP.md                  ← ce guide
+├── requirements.txt          ← dépendances Python
+└── tp/
+    ├── TP_S1/
+    │   └── TP_S1_symbolique.ipynb          — IA symbolique : règles & systèmes experts
+    ├── TP_S2/
+    │   └── TP_S2_ontologies.ipynb          — Ontologies & graphes (MITRE ATT&CK)
+    ├── TP0/
+    │   └── TP0_perceptron_debutant.ipynb   — Mon premier neurone (très guidé)
+    ├── TP1/
+    │   └── TP1_perceptron.ipynb            — Perceptron NumPy + PyTorch
+    ├── TP2/
+    │   └── TP2_ueba.ipynb                  — UEBA : K-Means & Isolation Forest
+    ├── TP4/
+    │   └── TP4_reseau_neurones.ipynb       — Réseau multicouches (MLP)
+    ├── TP5/
+    │   └── TP5_ia_generative.ipynb         — IA générative & sécurité LLMs
+    └── TP6/
+        └── TP6_defensive_ai.ipynb          — IDS par Machine Learning
 ```
 
 ---
@@ -140,33 +156,29 @@ jupyter notebook
 
 | Problème | Solution |
 |---|---|
-| `python` introuvable (Windows) | Relancez l'installateur Python, cochez "Add to PATH" |
-| `pip` introuvable | `python -m pip install --upgrade pip` |
-| Port 8888 occupé | `jupyter notebook --port 8889` |
-| Kernel mort dans Jupyter | Kernel → Restart, vérifiez que le venv est activé |
-| `ModuleNotFoundError` | `pip install NOM_DU_MODULE` dans le venv activé |
-| Problème SSL sur pip | `pip install --trusted-host pypi.org NOM_DU_MODULE` |
+| `python3` introuvable | Réinstallez Python en cochant "Add to PATH" |
+| `(venv)` n'apparaît pas | Relancez `source venv/bin/activate` |
+| `ModuleNotFoundError` | Vérifiez que le venv est activé puis `pip install NOM` |
+| JupyterLab ne s'ouvre pas | Copiez l'URL avec le token depuis le terminal |
+| Port 8888 occupé | `jupyter lab --port 8889` |
+| Kaggle : `401 Unauthorized` | Vérifiez l'emplacement de `kaggle.json` (section 5.2) |
+| Kaggle : `403 Forbidden` | Acceptez les conditions d'utilisation du dataset sur kaggle.com |
+| Téléchargement Kaggle lent | Normal pour les gros datasets — patientez |
 
 ---
 
-## Structure du dépôt Git
+## Mise à jour des notebooks
 
-```
-ia-cyber-m1/
-├── SETUP.md              ← ce guide
-├── tp/
-│   ├── tp1_perceptron/
-│   │   └── tp1_perceptron.ipynb
-│   ├── tp2_detection/
-│   │   └── tp2_detection_anomalies.ipynb
-│   └── tp3_adversarial/
-│       └── tp3_attaques.ipynb
-├── cours/
-│   └── slides/           ← diapositives PDF
-└── requirements.txt      ← toutes les dépendances du cours
-```
+L'enseignant peut corriger ou ajouter des fichiers pendant le semestre.  
+Pour récupérer les dernières versions :
 
-Pour installer toutes les dépendances en une seule commande :
 ```bash
-pip install -r requirements.txt
+cd ia-cyber-m1
+git pull
 ```
+
+> ⚠️ Si vous avez modifié un notebook, Git refusera le pull. Sauvegardez d'abord votre travail sous un autre nom (ex : `TP4_mon_travail.ipynb`), puis faites `git pull`.
+
+---
+
+*Cours IA & Cybersécurité · M1 · 2025-2026*
