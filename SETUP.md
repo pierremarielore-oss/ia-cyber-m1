@@ -13,7 +13,7 @@ Votre machine
 ├── Environnement virtuel  ← isolé, propre, reproductible
 │   └── toutes les bibliothèques du cours
 ├── JupyterLab             ← interface pour les notebooks
-└── Kaggle API             ← pour télécharger les datasets réels (TP5, TP6)
+└── Kaggle API             ← pour télécharger les datasets réels (TP4, TP5)
 ```
 
 ---
@@ -73,7 +73,7 @@ L'installation prend 3 à 5 minutes selon votre connexion. C'est normal.
 
 ## Étape 5 — Configurer l'accès Kaggle
 
-Kaggle est une plateforme gratuite qui héberge les datasets utilisés dans les TP5 et TP6.
+Kaggle est une plateforme gratuite qui héberge les datasets utilisés dans les TP4 et TP5.
 
 ### 5.1 Créer un compte Kaggle
 
@@ -141,9 +141,9 @@ ia-cyber-m1/
     ├── tp0_perceptron_debutant/      — Mon premier neurone (très guidé)
     ├── tp1_perceptron/               — Perceptron NumPy + PyTorch
     ├── tp2_ueba_non_supervise/       — UEBA : K-Means & Isolation Forest
-    ├── tp4_reseau_neurones/          — Réseau multicouches (MLP)
-    ├── tp5_ia_generative/            — IA générative & sécurité LLMs
-    └── tp6_defensive_ai/             — IDS par Machine Learning
+    ├── tp3_reseau_neurones/          — Réseau multicouches (MLP)
+    ├── tp4_ia_generative/            — IA générative & sécurité LLMs
+    └── tp5_defensive_ai/             — IDS par Machine Learning
 ```
 
 ---
@@ -159,7 +159,7 @@ git pull
 ```
 
 > ⚠️ Si vous avez modifié un notebook, Git peut refuser le pull.  
-> Sauvegardez d'abord votre travail sous un autre nom (ex : `TP4_mon_travail.ipynb`), puis faites `git pull`.
+> Sauvegardez d'abord votre travail sous un autre nom (ex : `TP3_mon_travail.ipynb`), puis faites `git pull`.
 
 ---
 
